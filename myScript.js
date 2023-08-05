@@ -3,18 +3,24 @@ const puppie = document.querySelector(".puppie");
 let margin_top = 0;
 let margin_left = 0;
 
-let isMoving = true;
+let isMoving = false;
+let interval;
 
 puppie.addEventListener("click", (e) => {
   let direction = e.target.classList[1];
 
   if (isMoving) {
-    let move = setInterval(
+    clearInterval(interval),
+      (interval = setInterval(
+        () => moving(direction, margin_top, margin_left),
+        1000
+      ));
+  } else {
+    interval = setInterval(
       () => moving(direction, margin_top, margin_left),
       1000
     );
-  } else {
-    clearInterval(move), (isMoving = false);
+    isMoving = true;
   }
 });
 
